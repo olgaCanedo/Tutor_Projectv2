@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group_nav"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_entec"
+            android:icon="@drawable/entec"
+            android:tint="@color/button_grey"
+            android:title="@string/Entec" />
+        <item
+            android:id="@+id/nav_math"
+            android:icon="@drawable/math"
+            android:tint="@color/button_grey"
+            android:title="@string/Math" />
+        <item
+            android:id="@+id/nav_business"
+            android:icon="@drawable/business"
+            android:tint="@color/button_grey"
+            android:title="@string/Business" />
+    </group>
+</menu>

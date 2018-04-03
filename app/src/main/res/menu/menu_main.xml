@@ -1,0 +1,20 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.olgac.tutor_temp.MainActivity">
+    <item
+        android:id="@+id/action_tutor"
+        android:icon="@drawable/tutors"
+        android:title="@string/addTutors"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_delete"
+        android:title="@string/Delete"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_update"
+        android:title="@string/Update"
+        app:showAsAction="never" />
+</menu>
