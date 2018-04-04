@@ -21,15 +21,12 @@ import java.util.List;
  * Created by olgac on 3/29/2018.
  */
 
-public class UsersFragment extends Fragment implements
-        ConfirmDeleteDialogFragment.OnDeleteConfirmedListener{
+public class UsersFragment extends Fragment{
     public static RecyclerView recyclerView;
     public static RecyclerView.Adapter adapter;
     private List<User> users;
     private AppDatabase db;
     private Context context;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,15 +47,5 @@ public class UsersFragment extends Fragment implements
         recyclerView.addItemDecoration(itemDecoration);
 
         return recyclerView;
-
-
     }
-
-
-    @Override
-    public void onDeleteConfirmed(User users) {
-        db = AppDatabase.getInstance(context);
-        db.userModel().deleteUser(users.getNameU());
-    }
-
 }

@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.olgac.tutor_temp.model.Campus;
+import com.example.olgac.tutor_temp.model.Subjects;
 import com.example.olgac.tutor_temp.model.Tutor;
 import com.example.olgac.tutor_temp.model.db.AppDatabase;
 
@@ -20,6 +21,8 @@ import java.util.List;
 
 public class AddUpdateTutor extends AppCompatActivity  {
     private Context context;
+    private List<Campus> campuses;
+    private AppDatabase database;
     private int campusID = -1;
     private int subjectID = -1;
 
@@ -29,7 +32,7 @@ public class AddUpdateTutor extends AppCompatActivity  {
         Toast.makeText(getApplicationContext(), "In AddUpdateTutor",
                 Toast.LENGTH_LONG).show();
 
-        final AppDatabase database = AppDatabase.getInstance(context);
+        database = AppDatabase.getInstance(context);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_update_tutor);
 
@@ -41,8 +44,11 @@ public class AddUpdateTutor extends AppCompatActivity  {
 
 
         Spinner spCampus = (Spinner) findViewById(R.id.spCampus);
-        final List<Campus> campuses = database.campusModel().findAllCampusSync();
-        List<String> campusNames = new ArrayList<>();
+        database.campusModel().insertCampus(new Campus("Hialeah"));
+        database.campusModel().insertCampus(new Campus("North"));
+
+        campuses = database.campusModel().findAllCampusSync();
+        List<String> campusNames = new ArrayList<String>();
         for(Campus c: campuses){
             campusNames.add(c.getNameC());
         }
@@ -65,6 +71,32 @@ public class AddUpdateTutor extends AppCompatActivity  {
 
         //TODO code for Subject spinner
 
+        Spinner spSubject = (Spinner) findViewById(R.id.spSubject);
+        database.subjectModel().insertSubjects(new Subjects("Entec"));
+        database.subjectModel().insertSubjects(new Subjects("Math"));
+
+        final List<Subjects> subjects = database.subjectModel().findAllSubjectsSync();
+        List<String> subjectsNames = new ArrayList<>();
+        for(Subjects s: subjects){
+            subjectsNames.add(s.getNameS());
+        }
+        ArrayAdapter<String> dataAdapterS = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, subjectsNames);
+        dataAdapterS.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spSubject.setAdapter(dataAdapterS);
+        spSubject.setOnItemSelectedListener(new  AdapterView.OnItemSelectedListener(){
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                subjectID = subjects.get(position).getIDSubject();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         btnAddTutor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +111,8 @@ public class AddUpdateTutor extends AppCompatActivity  {
                             campusID,
                             subjectID
                     ));
+                    Toast.makeText(getApplicationContext(), "Record saved",
+                            Toast.LENGTH_LONG).show();
 
 
                 } else{

@@ -6,12 +6,13 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.olgac.tutor_temp.model.Campus;
 import com.example.olgac.tutor_temp.model.CampusSubject;
+import com.example.olgac.tutor_temp.model.Lab;
 import com.example.olgac.tutor_temp.model.Schedules;
 import com.example.olgac.tutor_temp.model.Skills;
 import com.example.olgac.tutor_temp.model.Subjects;
 import com.example.olgac.tutor_temp.model.Tutor;
-import com.example.olgac.tutor_temp.model.Campus;
 import com.example.olgac.tutor_temp.model.TutorsSkill;
 import com.example.olgac.tutor_temp.model.User;
 
@@ -30,8 +31,9 @@ import java.io.OutputStream;
         Skills.class,
         Schedules.class,
         CampusSubject.class,
-        TutorsSkill.class},
-        version = 4,
+        TutorsSkill.class,
+        Lab.class},
+        version = 5,
         exportSchema = false)
 
 public abstract class AppDatabase extends RoomDatabase {
@@ -49,6 +51,8 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract TutorDAO tutorModel();
 
     public abstract UserDAO userModel();
+
+    public abstract LabDAO labModel();
 
 
     public static AppDatabase getInstance(Context context){

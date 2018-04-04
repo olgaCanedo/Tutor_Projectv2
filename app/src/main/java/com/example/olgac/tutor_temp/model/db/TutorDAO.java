@@ -42,9 +42,10 @@ public interface TutorDAO {
     TutorComplete findTutorCampleteByTutorIDSync(int ID);
 
     @Query("SELECT * FROM Tutor WHERE tutorId = :tutorID")
-    Tutor loadTutorBytutorID(int tutorID);
+    Tutor loadTutorByTutorID(int tutorID);
 
-    @Query("SELECT Skills.IDSkill,Skills.nameSkill, Skills.IDSubject  FROM Tutor INNER JOIN tutorsSkill ON Tutor.tutorId = tutorsSkill.IDTutor" +
+    @Query("SELECT Skills.IDSkill,Skills.nameSkill, Skills.IDSubject  " +
+            " FROM Tutor INNER JOIN tutorsSkill ON Tutor.tutorId = tutorsSkill.IDTutor" +
             " INNER JOIN Skills ON Skills.IDSkill = tutorsSkill.IDSkill" +
             " WHERE Tutor.tutorId =:tutorID")
     List<Skills> getSkillsByTutorID(int tutorID);

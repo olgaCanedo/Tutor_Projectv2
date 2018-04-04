@@ -5,7 +5,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.olgac.tutor_temp.model.Campus;
+import com.example.olgac.tutor_temp.model.Lab;
 
 import java.util.List;
 
@@ -13,22 +13,22 @@ import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 /**
- * Created by olgac on 3/28/2018.
+ * Created by olgac on 4/4/2018.
  */
 @Dao
-public interface CampusDAO {
-    @Query("SELECT * FROM Campus")
-    List<Campus> findAllCampusSync();
+public interface LabDAO {
+    @Query("SELECT * FROM Lab")
+    List<Lab> findAllLabsSync();
 
-    @Query("SELECT * FROM Campus WHERE IDCampus = :ID")
-    Campus loadCampusByID(int ID);
+    @Query("SELECT * FROM Lab WHERE labID = :ID")
+    Lab loadLabByID(int ID);
 
-    @Query("DELETE FROM Campus")
+    @Query("DELETE FROM Lab")
     void deleteAll();
 
     @Insert(onConflict = IGNORE)
-    void insertCampus(Campus campus);
+    void insertLab(Lab lab);
 
     @Update(onConflict = REPLACE)
-    void updateCampus(Campus campus);
+    void updateLab(Lab lab);
 }
