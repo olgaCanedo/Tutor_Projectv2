@@ -1,6 +1,7 @@
 package com.example.olgac.tutor_temp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -42,10 +43,9 @@ public class AddUpdateTutor extends AppCompatActivity  {
         final EditText txtEmailT = (EditText) findViewById(R.id.txtEmailT);
         final EditText txtPhoneT = (EditText) findViewById(R.id.txtPhoneT);
 
-
         Spinner spCampus = (Spinner) findViewById(R.id.spCampus);
-        database.campusModel().insertCampus(new Campus("Hialeah"));
-        database.campusModel().insertCampus(new Campus("North"));
+        //database.campusModel().insertCampus(new Campus("Hialeah"));
+        //database.campusModel().insertCampus(new Campus("North"));
 
         campuses = database.campusModel().findAllCampusSync();
         List<String> campusNames = new ArrayList<String>();
@@ -65,15 +65,14 @@ public class AddUpdateTutor extends AppCompatActivity  {
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
 
         //TODO code for Subject spinner
 
         Spinner spSubject = (Spinner) findViewById(R.id.spSubject);
-        database.subjectModel().insertSubjects(new Subjects("Entec"));
-        database.subjectModel().insertSubjects(new Subjects("Math"));
+        //database.subjectModel().insertSubjects(new Subjects("Entec"));
+        //database.subjectModel().insertSubjects(new Subjects("Math"));
 
         final List<Subjects> subjects = database.subjectModel().findAllSubjectsSync();
         List<String> subjectsNames = new ArrayList<>();
@@ -97,29 +96,31 @@ public class AddUpdateTutor extends AppCompatActivity  {
             }
         });
 
-
         btnAddTutor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(campusID != -1) {
-                    database.tutorModel().insertTutor(new Tutor(
-                            txtFirstNameT.getText().toString(),
-                            txtLastNameT.getText().toString(),
-                            txtEmailT.getText().toString(),
-                            txtPhoneT.getText().toString(),
-                            campusID,
-                            subjectID
-                    ));
-                    Toast.makeText(getApplicationContext(), "Record saved",
+                if(campusID != -1)
+                    if(subjectID != -1) {
+                        database.tutorModel().insertTutor(new Tutor(
+                                txtFirstNameT.getText().toString(),
+                                txtLastNameT.getText().toString(),
+                                txtEmailT.getText().toString(),
+                                txtPhoneT.getText().toString(),
+                                campusID,
+                                subjectID
+                        ));
+                        Toast.makeText(getApplicationContext(), "Record saved",
+                                Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(),TutorsManagement.class);
+                        startActivity(intent);
+
+                    }else
+                        Toast.makeText(getApplicationContext(), "Please select a Subject!",
+                                Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(getApplicationContext(), "Please select a Campus!",
                             Toast.LENGTH_LONG).show();
-
-
-                } else{
-                    Toast.makeText(getApplicationContext(), "Please select a campus!",
-                            Toast.LENGTH_LONG).show();
-                }
-
             }
         });
     }

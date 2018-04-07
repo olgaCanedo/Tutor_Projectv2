@@ -38,12 +38,6 @@ public class Users extends AppCompatActivity {
         btnAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*helper.openDB();
-                helper.insertUser(String.valueOf(txtUserName.getText()),
-                        String.valueOf(txtUserPassword.getText()));
-
-                helper.closeDB();*/
-
                 AppDatabase database = AppDatabase.getInstance(context);
                 database.userModel().insertUser(new User(String.valueOf(txtUserName.getText()),
                         String.valueOf(txtUserPassword.getText())));
@@ -56,5 +50,4 @@ public class Users extends AppCompatActivity {
             }
         });
     }
-
 }

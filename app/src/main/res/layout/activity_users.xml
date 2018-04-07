@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -23,6 +24,9 @@
     <include
         layout="@layout/content_users"
         android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal" />
+        android:layout_height="508dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        tools:layout_editor_absoluteY="59dp" />
 
 </android.support.design.widget.CoordinatorLayout>

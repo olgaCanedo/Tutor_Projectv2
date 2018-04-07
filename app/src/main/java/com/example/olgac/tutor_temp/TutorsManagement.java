@@ -31,7 +31,7 @@ public class TutorsManagement extends AppCompatActivity {
     private static final String TAG = TutorsManagement.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
     private NavigationView navigationView;
-    public static int posIndex=1;
+    public static int posIndex=0;
     private static Intent positionIntent;
     private ViewPager viewPager;
     private TabLayout tabs;
@@ -54,11 +54,14 @@ public class TutorsManagement extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 switch (posIndex)
                 {
-                    case 1:
+                    case 0:
                         positionIntent = new Intent(getApplicationContext(), Users.class);
+                        startActivity(positionIntent);
+                        break;
+                    case 1:
+                        positionIntent = new Intent(getApplicationContext(), CampusS.class);
                         startActivity(positionIntent);
                         break;
                     case 3:
@@ -121,7 +124,6 @@ public class TutorsManagement extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
-//            positionIntent.putExtra(INDEX_TAB, position);
             posIndex=position;
         }
 

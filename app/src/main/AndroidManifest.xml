@@ -25,6 +25,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.example.olgac.tutor_temp.TutorsManagement" />
         <activity android:name="com.example.olgac.tutor_temp.AddUpdateTutor"></activity>
+        <activity android:name="com.example.olgac.tutor_temp.CampusS"></activity>
     </application>
 
 </manifest>

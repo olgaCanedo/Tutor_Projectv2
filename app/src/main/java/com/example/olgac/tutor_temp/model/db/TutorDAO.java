@@ -52,7 +52,7 @@ public interface TutorDAO {
 
 
     @Query("DELETE FROM Tutor WHERE tutorId = :tutorID")
-    void deleteTutor(int tutorID);
+    void deleteTutor(long tutorID);
 
     @Query("DELETE FROM Tutor")
     void deleteAll();

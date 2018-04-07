@@ -23,6 +23,9 @@ public interface CampusDAO {
     @Query("SELECT * FROM Campus WHERE IDCampus = :ID")
     Campus loadCampusByID(int ID);
 
+    @Query("DELETE FROM Campus WHERE IDCampus = :idCampus")
+    void deleteCampus(int idCampus);
+
     @Query("DELETE FROM Campus")
     void deleteAll();
 
