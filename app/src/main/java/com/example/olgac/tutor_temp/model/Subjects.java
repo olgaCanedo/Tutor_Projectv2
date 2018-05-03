@@ -14,6 +14,7 @@ public class Subjects {
     private int IDSubject;
     private  String nameS;
 
+
     public Subjects(String nameS) {
         this.nameS = nameS;
     }

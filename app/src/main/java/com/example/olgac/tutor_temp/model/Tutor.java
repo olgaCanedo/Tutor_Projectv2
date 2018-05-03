@@ -1,6 +1,7 @@
 package com.example.olgac.tutor_temp.model;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -18,17 +19,20 @@ public class Tutor {
     private String phone;
     private int campusID;
     private int subjectID;
+    private byte[] picture;
 
+    @Ignore
     public Tutor() {
     }
 
-    public Tutor(String firstName, String lastName, String email, String phone, int campusID, int subjectID) {
+    public Tutor(String firstName, String lastName, String email, String phone, int campusID, int subjectID, byte[] picture) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
         this.campusID = campusID;
         this.subjectID = subjectID;
+        this.picture = picture;
     }
 
     public void setCampusID(int campusID) {
@@ -103,6 +107,14 @@ public class Tutor {
         this.subjectID = subject;
     }
 
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
     @Override
     public String toString() {
         return "Tutor{" +
@@ -113,6 +125,7 @@ public class Tutor {
                 ", phone='" + phone + '\'' +
                 ", campusID=" + campusID +
                 ", subjectID=" + subjectID +
+                ", picture=" + picture +
                 '}';
     }
 }

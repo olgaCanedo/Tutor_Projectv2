@@ -1,5 +1,6 @@
 package com.example.olgac.tutor_temp.views;
 
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,19 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.olgac.tutor_temp.R;
-import com.example.olgac.tutor_temp.model.Subjects;
+import com.example.olgac.tutor_temp.model.Skills;
 import com.example.olgac.tutor_temp.model.db.AppDatabase;
 
 import java.util.List;
 
-/**
- * Created by olgac on 3/29/2018.
- */
+public class SkillsFragment extends Fragment {
 
-public class SubjectsFragment extends Fragment {
+
     public static RecyclerView recyclerView;
     public static RecyclerView.Adapter adapter;
-    private List<Subjects> subjects;
+    private List<Skills> skills;
     private AppDatabase db;
     private Context context;
 
@@ -33,11 +32,11 @@ public class SubjectsFragment extends Fragment {
         context = this.getContext();
 
         db = AppDatabase.getInstance(context);
-        subjects = db.subjectModel().findAllSubjectsSync();
+        skills = db.skillsModel().findAllSkillsSync();
         recyclerView = (RecyclerView) inflater.inflate(
                 R.layout.recycler_view, container, false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new SubjectsAdapter(subjects);
+        adapter = new SkillsAdapter(skills);
         adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 

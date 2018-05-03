@@ -25,8 +25,16 @@ public interface SkillsDAO {
     @Query("SELECT * FROM Skills WHERE IDSkill = :ID")
     Skills loadSkillsByID(int ID);
 
+    @Query("SELECT * FROM Skills WHERE IDSubject = :idSubject")
+    List<Skills> loadSkillsBySubjectID(int idSubject);
+
+
+
     @Query("DELETE FROM Skills")
     void deleteAll();
+
+    @Query("DELETE FROM Skills WHERE IDSkill = :idSkill")
+    void deleteSkill(int idSkill);
 
     @Insert(onConflict = IGNORE)
     void insertSkills(Skills skills);

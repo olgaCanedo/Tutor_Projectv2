@@ -3,12 +3,10 @@ package com.example.olgac.tutor_temp.model.db;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
-import android.arch.persistence.room.RoomWarnings;
 import android.arch.persistence.room.Update;
 
 import com.example.olgac.tutor_temp.model.Skills;
 import com.example.olgac.tutor_temp.model.Tutor;
-import com.example.olgac.tutor_temp.model.TutorComplete;
 import com.example.olgac.tutor_temp.model.TutorsSkill;
 
 import java.util.List;
@@ -25,31 +23,19 @@ public interface TutorDAO {
     @Query("SELECT * FROM Tutor")
     List<Tutor> findAllTutorSync();
 
-    @Query("SELECT * " +
-            " FROM Tutor INNER JOIN Campus ON Tutor.campusID = Campus.IDCampus" +
-            " INNER JOIN Subjects ON Tutor.subjectID = Subjects.IDSubject")
-    List<TutorComplete> findAllTutorCompleteSync();
+    @Query("SELECT * FROM Tutor WHERE subjectID = :idSubject")
+    List<Tutor> findTutorBySubject(int idSubject);
 
-    /**
-     * @param ID
-     * @return
-     */
-    @Query("SELECT * " +
-            " FROM Tutor INNER JOIN Campus ON Tutor.campusID = Campus.IDCampus" +
-            " INNER JOIN Subjects ON Tutor.subjectID = Subjects.IDSubject" +
-            " WHERE Tutor.tutorId = :ID")
-    @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
-    TutorComplete findTutorCampleteByTutorIDSync(int ID);
+
 
     @Query("SELECT * FROM Tutor WHERE tutorId = :tutorID")
-    Tutor loadTutorByTutorID(int tutorID);
+    Tutor loadTutorByTutorID(long tutorID);
 
-    @Query("SELECT Skills.IDSkill,Skills.nameSkill, Skills.IDSubject  " +
-            " FROM Tutor INNER JOIN tutorsSkill ON Tutor.tutorId = tutorsSkill.IDTutor" +
-            " INNER JOIN Skills ON Skills.IDSkill = tutorsSkill.IDSkill" +
-            " WHERE Tutor.tutorId =:tutorID")
-    List<Skills> getSkillsByTutorID(int tutorID);
-
+    @Query("SELECT * FROM Skills " +
+            " INNER JOIN TutorsSkill ON Skills.IDSkill = TutorsSkill.IDSkill" +
+            " INNER JOIN Tutor ON Tutor.tutorId = TutorsSkill.IDTutor" +
+            " WHERE Tutor.tutorId = :tutorID")
+    List<Skills> getSkillsByTutorID(long tutorID);
 
     @Query("DELETE FROM Tutor WHERE tutorId = :tutorID")
     void deleteTutor(long tutorID);

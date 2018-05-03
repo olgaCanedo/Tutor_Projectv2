@@ -8,7 +8,6 @@ import android.util.Log;
 
 import com.example.olgac.tutor_temp.model.Campus;
 import com.example.olgac.tutor_temp.model.CampusSubject;
-import com.example.olgac.tutor_temp.model.Lab;
 import com.example.olgac.tutor_temp.model.Schedules;
 import com.example.olgac.tutor_temp.model.Skills;
 import com.example.olgac.tutor_temp.model.Subjects;
@@ -31,9 +30,8 @@ import java.io.OutputStream;
         Skills.class,
         Schedules.class,
         CampusSubject.class,
-        TutorsSkill.class,
-        Lab.class},
-        version = 5,
+        TutorsSkill.class},
+        version = 13,
         exportSchema = false)
 
 public abstract class AppDatabase extends RoomDatabase {
@@ -52,7 +50,11 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract UserDAO userModel();
 
-    public abstract LabDAO labModel();
+    public abstract CampusSubjectDAO campusSubjectModel();
+
+    public abstract TutorsSkillDAO tutorsSkillModel();
+
+    public abstract ScheduleDAO scheduleModel();
 
 
     public static AppDatabase getInstance(Context context){

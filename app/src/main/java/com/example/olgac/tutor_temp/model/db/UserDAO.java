@@ -27,8 +27,8 @@ public interface UserDAO {
     @Query("SELECT * FROM User WHERE nameU LIKE :name")
     User findByName(String name);
 
-    @Query("DELETE FROM User WHERE nameU LIKE :name")
-    void deleteUser(String name);
+    @Query("DELETE FROM User WHERE IDUser LIKE :idUser")
+    void deleteUser(int idUser);
 
     @Query("DELETE FROM User")
     void deleteAll();

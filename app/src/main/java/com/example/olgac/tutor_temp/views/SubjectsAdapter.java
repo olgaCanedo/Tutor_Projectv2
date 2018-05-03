@@ -1,6 +1,5 @@
 package com.example.olgac.tutor_temp.views;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,63 +13,55 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.olgac.tutor_temp.CampusS;
 import com.example.olgac.tutor_temp.R;
+import com.example.olgac.tutor_temp.SubjectsA;
 import com.example.olgac.tutor_temp.model.Campus;
-import com.example.olgac.tutor_temp.model.CampusSubject;
+import com.example.olgac.tutor_temp.model.Subjects;
+import com.example.olgac.tutor_temp.model.Tutor;
 import com.example.olgac.tutor_temp.model.db.AppDatabase;
 
 import java.util.List;
 
 /**
- * Created by olgac on 4/5/2018.
+ * Created by olgac on 4/6/2018.
  */
 
-public class CampusAdapter extends RecyclerView.Adapter<CampusAdapter.ViewHolder>
-{
-    private List<Campus> campus;
+public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.ViewHolder>{
+    private List<Subjects> subjects;
+    private List<Campus> subjectCampus;
+    private List<Tutor> listSubTutor;
     private static Context context;
     public static RecyclerView.Adapter adapter;
     private AppDatabase db;
-    private List<CampusSubject> listCamSub;
+    private String namesCampus="";
 
-    public CampusAdapter(List<Campus> campus) {
-        this.campus = campus;
+    public SubjectsAdapter(List<Subjects> subjects) {
+        this.subjects = subjects;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_campus,parent,false);
-        return new ViewHolder(view);
+    public SubjectsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_subject,parent,false);
+        db = AppDatabase.getInstance(context);
+        return new SubjectsAdapter.ViewHolder(view);
     }
 
-    @SuppressLint("NewApi")
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        final Campus clsCampus = campus.get(position);
-        if (clsCampus.getNameC() != null) {
-            holder.name.setText(clsCampus.getNameC());
+        final Subjects clsSubjects = subjects.get(position);
+
+        if (clsSubjects.getNameS() != null) {
+            namesCampus="";
+            subjectCampus= db.subjectModel().loadCampusBySubjectID(clsSubjects.getIDSubject());
+            for(Campus nameCampus:subjectCampus)
+            {
+                namesCampus = namesCampus + " - " + nameCampus.getNameC();
+            }
+            holder.name.setText(clsSubjects.getNameS());
+            holder.campuSubject.setText(namesCampus);
         } else {
             holder.name.setText("No Name");
-        }
-
-        if (clsCampus.getPhoneC() != null) {
-            holder.phone.setText(clsCampus.getPhoneC());
-        } else {
-            holder.phone.setText("No Phone");
-        }
-
-        if (clsCampus.getRoomC() != null) {
-            holder.room.setText(clsCampus.getRoomC());
-        } else {
-            holder.room.setText("No Room");
-        }
-
-        if (clsCampus.getLocationC() != null) {
-            holder.location.setText(clsCampus.getLocationC());
-        } else {
-            holder.location.setText("No Location");
         }
 
         holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
@@ -81,8 +72,8 @@ public class CampusAdapter extends RecyclerView.Adapter<CampusAdapter.ViewHolder
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        Intent intent = new Intent(v.getContext(),CampusS.class);
-                        intent.putExtra("KEY_CAMPUSID",clsCampus.getIDCampus());
+                        Intent intent = new Intent(v.getContext(),SubjectsA.class);
+                        intent.putExtra("KEY_SUBJECTID",clsSubjects.getIDSubject());
                         intent.putExtra("KEY_ACTION","Update");
                         v.getContext().startActivity(intent);
                         return false;
@@ -95,19 +86,18 @@ public class CampusAdapter extends RecyclerView.Adapter<CampusAdapter.ViewHolder
                         context = v.getContext();
 
                         new AlertDialog.Builder(context)
-                                .setTitle("Delete Campus")
-                                .setMessage("Do you want to delete: " + clsCampus.getNameC() + " ?")
+                                .setTitle("Delete Subject")
+                                .setMessage("Do you want to delete: " + clsSubjects.getNameS() + " ?")
                                 .setPositiveButton(android.R.string.ok,
                                         new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                db = AppDatabase.getInstance(context);
-                                                listCamSub=db.campusSubjectModel().findAllCampusSync(clsCampus.getIDCampus());
-                                                if (listCamSub.size()>0){
+                                                listSubTutor=db.tutorModel().findTutorBySubject(clsSubjects.getIDSubject());
+                                                if (listSubTutor.size()>0){
 
                                                     new AlertDialog.Builder(context)
                                                             .setTitle("Warning!")
-                                                            .setMessage("The record cannot be deleted, it has subjects and related tutors.")
+                                                            .setMessage("The record cannot be deleted, it has tutors related.")
                                                             .setPositiveButton(android.R.string.ok,
                                                                     new DialogInterface.OnClickListener() {
                                                                         @Override
@@ -117,15 +107,17 @@ public class CampusAdapter extends RecyclerView.Adapter<CampusAdapter.ViewHolder
                                                             .create().show();
 
                                                 }else {
-                                                    db.campusModel().deleteCampus(clsCampus.getIDCampus());
+                                                    db.campusSubjectModel().deleteAllBySubjectID(clsSubjects.getIDSubject());
+                                                    db.subjectModel().deleteSubject(clsSubjects.getIDSubject());
+
                                                     Toast.makeText(context, "Record deleted",
                                                             Toast.LENGTH_LONG).show();
                                                 }
+                                                    subjects = db.subjectModel().findAllSubjectsSync();
+                                                    adapter = new SubjectsAdapter(subjects);
+                                                    adapter.notifyDataSetChanged();
+                                                    SubjectsFragment.recyclerView.setAdapter(adapter);
 
-                                                campus = db.campusModel().findAllCampusSync();
-                                                adapter = new CampusAdapter(campus);
-                                                adapter.notifyDataSetChanged();
-                                                CampusFragment.recyclerView.setAdapter(adapter);
                                             }
                                         })
                                 .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -144,21 +136,17 @@ public class CampusAdapter extends RecyclerView.Adapter<CampusAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return campus.size();
+        return subjects.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView name;
-        public TextView phone;
-        public TextView room;
-        public TextView location;
+        public TextView campuSubject;
 
         public ViewHolder(final View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.list_title);
-            phone = itemView.findViewById(R.id.list_phone);
-            room = itemView.findViewById(R.id.list_room);
-            location = itemView.findViewById(R.id.list_loc);
+            campuSubject = itemView.findViewById(R.id.list_campus);
         }
     }
 }

@@ -14,9 +14,15 @@ public class Campus {
     @NonNull
     private int IDCampus;
     private String nameC;
+    private String phoneC;
+    private String roomC;
+    private String locationC;
 
-    public Campus(String nameC) {
+    public Campus(String nameC, String phoneC, String roomC, String locationC) {
         this.nameC = nameC;
+        this.phoneC = phoneC;
+        this.roomC = roomC;
+        this.locationC = locationC;
     }
 
     @NonNull
@@ -36,11 +42,38 @@ public class Campus {
         this.nameC = nameC;
     }
 
+    public String getPhoneC() {
+        return phoneC;
+    }
+
+    public void setPhoneC(String phoneC) {
+        this.phoneC = phoneC;
+    }
+
+    public String getRoomC() {
+        return roomC;
+    }
+
+    public void setRoomC(String roomC) {
+        this.roomC = roomC;
+    }
+
+    public String getLocationC() {
+        return locationC;
+    }
+
+    public void setLocationC(String locationC) {
+        this.locationC = locationC;
+    }
+
     @Override
     public String toString() {
         return "Campus{" +
                 "IDCampus=" + IDCampus +
                 ", nameC='" + nameC + '\'' +
+                ", phoneC='" + phoneC + '\'' +
+                ", roomC='" + roomC + '\'' +
+                ", locationC='" + locationC + '\'' +
                 '}';
     }
 }

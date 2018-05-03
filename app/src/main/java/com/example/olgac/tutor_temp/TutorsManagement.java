@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.olgac.tutor_temp.views.CampusFragment;
+import com.example.olgac.tutor_temp.views.SkillsFragment;
 import com.example.olgac.tutor_temp.views.SubjectsFragment;
 import com.example.olgac.tutor_temp.views.TutorsFragment;
 import com.example.olgac.tutor_temp.views.UsersFragment;
@@ -57,31 +58,38 @@ public class TutorsManagement extends AppCompatActivity {
                 switch (posIndex)
                 {
                     case 0:
-                        positionIntent = new Intent(getApplicationContext(), Users.class);
+                        positionIntent = new Intent(getApplicationContext(), CampusS.class);
                         startActivity(positionIntent);
                         break;
                     case 1:
-                        positionIntent = new Intent(getApplicationContext(), CampusS.class);
+                        positionIntent = new Intent(getApplicationContext(), SubjectsA.class);
+                        startActivity(positionIntent);
+                        break;
+                    case 2:
+                        positionIntent = new Intent(getApplicationContext(), SkillA.class);
                         startActivity(positionIntent);
                         break;
                     case 3:
                         positionIntent = new Intent(getApplicationContext(), AddUpdateTutor.class);
                         startActivity(positionIntent);
                         break;
+                    case 4:
+                        positionIntent = new Intent(getApplicationContext(), Users.class);
+                        startActivity(positionIntent);
+                        break;
                 }
-
             }
         });
-
     }
 
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new UsersFragment(), "Users");
         adapter.addFragment(new CampusFragment(), "Campus");
-        adapter.addFragment(new SubjectsFragment(), "Subjects");
+        adapter.addFragment(new SubjectsFragment(), "Labs");
+        adapter.addFragment(new SkillsFragment(), "Skills");
         adapter.addFragment(new TutorsFragment(), "Tutors");
+        adapter.addFragment(new UsersFragment(), "Users");
         viewPager.setAdapter(adapter);
     }
 
@@ -113,6 +121,7 @@ public class TutorsManagement extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
+
             return mFragmentTitleList.get(position);
         }
     }

@@ -34,4 +34,6 @@ public interface CampusDAO {
 
     @Update(onConflict = REPLACE)
     void updateCampus(Campus campus);
+
+
 }

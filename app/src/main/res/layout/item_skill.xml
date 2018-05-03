@@ -23,23 +23,22 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/list_title"
-            android:layout_alignLeft="@+id/textView2"
-            android:layout_alignStart="@+id/textView2"
-            android:text="Name:"
-            android:textSize="14sp" />
+            android:text="Name:  "
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/list_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/list_desc"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/list_desc"
+            android:layout_toEndOf="@+id/textView"
+            android:layout_toRightOf="@+id/textView"
+            android:ellipsize="end"
+            android:singleLine="false"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/article_subheading"
             android:textStyle="bold"
-            tools:text="@string/item_title" />
+            android:textSize="20sp"
+            tools:text="@string/item_desc" />
 
         <TextView
             android:id="@+id/textView2"
@@ -47,27 +46,31 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignTop="@+id/list_desc"
-            android:layout_marginLeft="28dp"
-            android:layout_marginStart="28dp"
-            android:text="Password:  "
+            android:layout_alignTop="@+id/list_subject"
+            android:layout_centerVertical="true"
+            android:text="Subject:  "
+            android:textColor="@color/cardview_dark_background"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/list_desc"
+            android:id="@+id/list_subject"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentRight="false"
+            android:layout_alignParentTop="false"
             android:layout_below="@+id/list_title"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/textView2"
             android:layout_toRightOf="@+id/textView2"
             android:ellipsize="end"
             android:singleLine="false"
-            android:textColor="@android:color/background_dark"
-            android:textSize="@dimen/list_body"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
             tools:text="@string/item_desc" />
+
     </RelativeLayout>
 
 
 </android.support.v7.widget.CardView>
-
-
